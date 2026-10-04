@@ -1,5 +1,5 @@
 <?php
-// Clase que gestiona la tabla "partaideak" (participantes)
+// Clase que gestiona la tabla partaideak 
 class Partaideak
 {
     private PDO $db;
@@ -9,7 +9,7 @@ class Partaideak
         $this->db = $db;
     }
 
-    // Participantes de un equipo concreto
+    // Participantes de una gela concreto
     public function obtenerPorTaldea(int $taldeaId): array
     {
         $stmt = $this->db->prepare(
@@ -19,7 +19,7 @@ class Partaideak
         return $stmt->fetchAll();
     }
 
-    // Inserta un participante nuevo en un equipo
+    // mete  un paratide  nuevo en un equipo
     public function crear(string $izena, string $herrialdea, int $taldeaId): void
     {
         $stmt = $this->db->prepare(

@@ -1,11 +1,11 @@
 <?php
-// Clase para los mensajes al usuario y el talde favorito (sesión + cookie)
+// Clase para los mensajes al usuario y el talde favorito 
 class Sesion
 {
-    // Nombre de la cookie que se guarda en el navegador
+    // Nombre de la cookie que se guarda en la pagina 
     private const COOKIE_FAVORITO = 'taldea_gogokoena';
 
-    // Guarda un mensaje ('ok' o 'error') para enseñarlo en la siguiente página
+    // Guarda un mensaje 'ok' o 'error' para enseñarlo en la siguiente página
     public static function guardarMensaje(string $tipo, string $texto): void
     {
         $_SESSION['mensaje'] = ['tipo' => $tipo, 'texto' => $texto];
@@ -21,7 +21,7 @@ class Sesion
         }
     }
 
-    // Guarda el mensaje y redirige a otra página (corta la ejecución)
+    // Guarda el mensaje y manda a otra página 
     public static function redirigir(string $url, string $tipo, string $texto): void
     {
         self::guardarMensaje($tipo, $texto);
@@ -29,7 +29,7 @@ class Sesion
         exit;
     }
 
-    // Guarda el favorito en una cookie (30 días) Y en $_SESSION
+    // Guarda el favorito en una cookie y en $_SESSION
     public static function guardarFavorito(int $id): void
     {
         setcookie(self::COOKIE_FAVORITO, (string) $id, time() + 60 * 60 * 24 * 30, '/');
@@ -39,7 +39,7 @@ class Sesion
     // Devuelve el id favorito o null si no hay ninguno
     public static function obtenerFavorito(): ?int
     {
-        // Si la sesión caducó pero la cookie sigue ahí, recuperamos el favorito desde la cookie
+        // Si la sesión caduca pero la cookie sigue ahí, recuperamos el favorito desde la cookie
         if (!isset($_SESSION['gogokoena']) && isset($_COOKIE[self::COOKIE_FAVORITO])) {
             $_SESSION['gogokoena'] = (int) $_COOKIE[self::COOKIE_FAVORITO];
         }
@@ -47,7 +47,7 @@ class Sesion
         return isset($_SESSION['gogokoena']) ? (int) $_SESSION['gogokoena'] : null;
     }
 
-    // Elimina el favorito: borra la sesión y caduca la cookie (fecha en el pasado)
+    // Elimina el favorito  borra la sesión y caduca la cookie 
     public static function borrarFavorito(): void
     {
         unset($_SESSION['gogokoena']);
